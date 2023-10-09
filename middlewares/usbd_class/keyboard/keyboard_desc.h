@@ -76,7 +76,7 @@ extern "C" {
   * @brief usb hid endpoint interval define
   */
 #define KEYBOARD_BINTERVAL_TIME                0x0A
-#define KEYBOARD_HS_BINTERVAL_TIME             0x07
+#define KEYBOARD_HS_BINTERVAL_TIME             0x01
 
 /**
   * @brief usb mcu id address deine

@@ -76,7 +76,7 @@ extern "C" {
   * @brief usb hid endpoint interval define
   */
 #define MOUSE_BINTERVAL_TIME                0x0A
-#define MOUSE_HS_BINTERVAL_TIME             0x07
+#define MOUSE_HS_BINTERVAL_TIME             0x01
 
 /**
   * @brief usb mcu id address deine

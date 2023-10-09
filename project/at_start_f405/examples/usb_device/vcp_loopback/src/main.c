@@ -82,7 +82,7 @@ int main(void)
   /* select usb 48m clcok source */
   usb_clock48m_select(USB_CLK_HEXT);
   
-  /* enable otgfs irq */
+  /* enable otg irq */
   nvic_irq_enable(OTG_IRQ, 0, 0);
   
   /* init usb */

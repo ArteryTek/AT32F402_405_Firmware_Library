@@ -71,13 +71,13 @@ int main(void)
   usb_low_power_wakeup_config();
 #endif
 
-  /* enable otgfs clock */
+  /* enable otg clock */
   crm_periph_clock_enable(OTG_CLOCK, TRUE);
 
   /* select usb 48m clcok source */
   usb_clock48m_select(USB_CLK_HEXT);
 
-  /* enable otgfs irq */
+  /* enable otg irq */
   nvic_irq_enable(OTG_IRQ, 0, 0);
 
   /* init usb */

@@ -124,7 +124,7 @@ void SystemInit (void)
 void system_core_clock_update(void)
 {
   uint32_t pll_ns = 0, pll_ms = 0, pll_fr = 0, pll_clock_source = 0, pllrcsfreq = 0;
-  uint32_t temp = 0, div_value = 0;
+  uint32_t temp = 0, div_value = 0, psc = 0;
   crm_sclk_type sclk_source;
 
   static const uint8_t sys_ahb_div_table[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
@@ -140,9 +140,14 @@ void system_core_clock_update(void)
         system_core_clock = HICK_VALUE * 6;
       else
         system_core_clock = HICK_VALUE;
+
+      psc = CRM->misc2_bit.hick_to_sclk_div;
+      system_core_clock = system_core_clock >> psc;
       break;
     case CRM_SCLK_HEXT:
       system_core_clock = HEXT_VALUE;
+      psc = CRM->misc2_bit.hext_to_sclk_div;
+      system_core_clock = system_core_clock >> psc;
       break;
     case CRM_SCLK_PLL:
       /* get pll clock source */

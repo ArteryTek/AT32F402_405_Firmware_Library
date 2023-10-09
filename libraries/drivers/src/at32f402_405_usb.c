@@ -546,11 +546,22 @@ void usb_ept_close(otg_global_type *usbx, usb_ept_info *ept_info)
   if(ept_info->inout == EPT_DIR_IN)
   {
     OTG_DEVICE(usbx)->daintmsk &= ~(1 << ept_info->eptn);
+    if(USB_INEPT(usbx, ept_info->eptn)->diepctl_bit.eptena == SET)
+    {
+      USB_INEPT(usbx, ept_info->eptn)->diepctl_bit.eptdis = TRUE;
+      USB_INEPT(usbx, ept_info->eptn)->diepctl_bit.snak = TRUE;
+    }
     USB_INEPT(usbx, ept_info->eptn)->diepctl_bit.usbacept = FALSE;
   }
   else
   {
     OTG_DEVICE(usbx)->daintmsk &= ~((1 << ept_info->eptn) << 16);
+    if(USB_OUTEPT(usbx, ept_info->eptn)->doepctl_bit.eptena == SET)
+    {
+      USB_OUTEPT(usbx, ept_info->eptn)->doepctl_bit.eptdis = TRUE;
+      USB_OUTEPT(usbx, ept_info->eptn)->doepctl_bit.snak = TRUE;
+    }
+
     USB_OUTEPT(usbx, ept_info->eptn)->doepctl_bit.usbacept = FALSE;
   }
 }

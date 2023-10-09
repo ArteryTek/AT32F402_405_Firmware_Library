@@ -408,6 +408,12 @@ void usbd_enumdone_handler(usbd_core_type *udev)
     udev->speed = USB_FULL_SPEED;
     usbx->gusbcfg_bit.usbtrdtim = USB_TRDTIM_16;
   }
+  
+  /* close endpoint 0 */
+  usbd_ept_close(udev, 0x00);
+  
+  /* close endpoint 0 */
+  usbd_ept_close(udev, 0x80);
 
   /* open endpoint 0 out */
   usbd_ept_open(udev, 0x00, EPT_CONTROL_TYPE, 0x40);
