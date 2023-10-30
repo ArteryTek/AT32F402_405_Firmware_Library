@@ -67,7 +67,7 @@ linecoding_type linecoding =
 cdc_struct_type cdc_struct;
 
 /*cdc receive buffer define*/
-static uint32_t g_cdc_rx_buffer[128];
+static uint32_t g_cdc_rx_buffer[512];
 static uint32_t g_cdc_cmd_buffer[16];
 
 /* usb device class handler */

@@ -545,14 +545,7 @@ usb_sts_type usbh_core_init(usbh_core_type *uhost,
   uhost->user_handler->user_init();
 
   uhost->timer = 0;
-//  if(core_id == USB_HIGH_SPEED_CORE_ID)
-//  {
-//    uhost->speed = USB_HIGH_SPEED;
-//  }
-//  else
-//  {
-//    uhost->speed = USB_FULL_SPEED;
-//  }
+
   /* usb host cfg default init */
   usbh_cfg_default_init(uhost);
 

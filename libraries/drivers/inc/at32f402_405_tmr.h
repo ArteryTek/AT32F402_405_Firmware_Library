@@ -907,17 +907,13 @@ typedef struct
 #define TMR2                             ((tmr_type *) TMR2_BASE)
 #define TMR3                             ((tmr_type *) TMR3_BASE)
 #define TMR4                             ((tmr_type *) TMR4_BASE)
-#define TMR5                             ((tmr_type *) TMR5_BASE)
 #define TMR6                             ((tmr_type *) TMR6_BASE)
 #define TMR7                             ((tmr_type *) TMR7_BASE)
-#define TMR8                             ((tmr_type *) TMR8_BASE)
 #define TMR9                             ((tmr_type *) TMR9_BASE)
 #define TMR10                            ((tmr_type *) TMR10_BASE)
 #define TMR11                            ((tmr_type *) TMR11_BASE)
-#define TMR12                            ((tmr_type *) TMR12_BASE)
 #define TMR13                            ((tmr_type *) TMR13_BASE)
 #define TMR14                            ((tmr_type *) TMR14_BASE)
-#define TMR20                            ((tmr_type *) TMR20_BASE)
 
 /** @defgroup TMR_exported_functions
   * @{
@@ -976,6 +972,7 @@ void tmr_trigger_input_select(tmr_type *tmr_x, sub_tmr_input_sel_type trigger_se
 void tmr_sub_sync_mode_set(tmr_type *tmr_x, confirm_state new_state);
 void tmr_dma_request_enable(tmr_type *tmr_x, tmr_dma_request_type dma_request, confirm_state new_state);
 void tmr_interrupt_enable(tmr_type *tmr_x, uint32_t tmr_interrupt, confirm_state new_state);
+flag_status tmr_interrupt_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 flag_status tmr_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_flag_clear(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_event_sw_trigger(tmr_type *tmr_x, tmr_event_trigger_type tmr_event);
