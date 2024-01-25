@@ -782,17 +782,17 @@ void usart_id_bit_num_set(usart_type* usart_x, usart_identification_bit_num_type
 }
 
 /**
-  * @brief  enable or disable the usart's de polarity reverse.
+  * @brief  set the usart's de polarity.
   * @param  usart_x: select the usart or the uart peripheral.
   *         this parameter can be one of the following values:
   *         USART1, USART2, USART3
-  * @param  new_state: new state of the irda mode.
-  *         this parameter can be: TRUE or FALSE.
+  * @param  de_polarity: the usart de polarity selection.
+  *         this parameter can be: USART_DE_POLARITY_HIGH or USART_DE_POLARITY_LOW.
   * @retval none
   */
-void usart_de_polarity_reverse(usart_type* usart_x, confirm_state new_state)
+void usart_de_polarity_set(usart_type* usart_x, usart_de_polarity_type de_polarity)
 {
-  usart_x->ctrl3_bit.dep = new_state;
+  usart_x->ctrl3_bit.dep = (uint8_t)de_polarity;
 }
 
 /**

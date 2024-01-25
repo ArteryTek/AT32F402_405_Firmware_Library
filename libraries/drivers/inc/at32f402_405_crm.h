@@ -461,8 +461,7 @@ typedef enum
   CRM_CLKOUT_ADC                         = 0x11, /*!< output adcclk to clkout pin */
   CRM_CLKOUT_HICK                        = 0x12, /*!< output high speed internal clock to clkout pin */
   CRM_CLKOUT_LICK                        = 0x13, /*!< output low speed internal clock to clkout pin */
-  CRM_CLKOUT_LEXT                        = 0x14, /*!< output low speed external crystal to clkout pin */
-  CRM_CLKOUT_USBHS                       = 0x15  /*!< output usbhsclk to clkout pin */
+  CRM_CLKOUT_LEXT                        = 0x14  /*!< output low speed external crystal to clkout pin */
 } crm_clkout_select_type;
 
 /**

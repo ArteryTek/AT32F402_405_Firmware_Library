@@ -929,7 +929,7 @@ void crm_clocks_freq_get(crm_clocks_freq_type *clocks_struct)
 }
 
 /** 
-  * @brief  set crm clkout2
+  * @brief  set crm clkout
   * @param  clkout
   *         this parameter can be one of the following values:
   *         - CRM_CLKOUT_SCLK 
@@ -940,7 +940,6 @@ void crm_clocks_freq_get(crm_clocks_freq_type *clocks_struct)
   *         - CRM_CLKOUT_HICK 
   *         - CRM_CLKOUT_LICK 
   *         - CRM_CLKOUT_LEXT 
-  *         - CRM_CLKOUT_USBHS
   * @retval none
   */
 void crm_clock_out_set(crm_clkout_select_type clkout)
@@ -957,7 +956,7 @@ void crm_clock_out_set(crm_clkout_select_type clkout)
 }
 
 /** 
-  * @brief  set crm clkout1 division1
+  * @brief  set crm clkout division1
   * @param  div1
   *         this parameter can be one of the following values:
   *         - CRM_CLKOUT_DIV1_1

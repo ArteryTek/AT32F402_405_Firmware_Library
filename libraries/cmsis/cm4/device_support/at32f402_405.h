@@ -159,7 +159,7 @@ extern "C" {
   */
 #define __AT32F402_405_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F402_405_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x02) /*!< [15:8]  minor version */
+#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x03) /*!< [15:8]  minor version */
 #define __AT32F402_405_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F402_405_LIBRARY_VERSION          ((__AT32F402_405_LIBRARY_VERSION_MAJOR << 24)  | \
                                                  (__AT32F402_405_LIBRARY_VERSION_MIDDLE << 16) | \
@@ -274,7 +274,7 @@ typedef enum IRQn
     I2SF5_IRQn                  = 85,     /*!< i2sf5 global interrupt                               */
     QSPI1_IRQn                  = 92,     /*!< qspi1 global interrupt                               */
     DMAMUX_IRQn                 = 94,     /*!< dmamux global interrupt                              */
-    ACC_IRQn                    = 103,    /*!< acc interrupt                                        */
+    ACC_IRQn                    = 103     /*!< acc interrupt                                        */
 
 } IRQn_Type;
 

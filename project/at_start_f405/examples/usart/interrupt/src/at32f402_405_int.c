@@ -148,7 +148,7 @@ void SysTick_Handler(void)
   */
 void USART2_IRQHandler(void)
 {
-  if(usart_flag_get(USART2, USART_RDBF_FLAG) != RESET)
+  if(usart_interrupt_flag_get(USART2, USART_RDBF_FLAG) != RESET)
   {
     /* read one byte from the receive data register */
     usart2_rx_buffer[usart2_rx_counter++] = usart_data_receive(USART2);
@@ -160,7 +160,7 @@ void USART2_IRQHandler(void)
     }
   }
 
-  if(usart_flag_get(USART2, USART_TDBE_FLAG) != RESET)
+  if(usart_interrupt_flag_get(USART2, USART_TDBE_FLAG) != RESET)
   {
     /* write one byte to the transmit data register */
     usart_data_transmit(USART2, usart2_tx_buffer[usart2_tx_counter++]);
@@ -180,7 +180,7 @@ void USART2_IRQHandler(void)
   */
 void USART3_IRQHandler(void)
 {
-  if(usart_flag_get(USART3, USART_RDBF_FLAG) != RESET)
+  if(usart_interrupt_flag_get(USART3, USART_RDBF_FLAG) != RESET)
   {
     /* read one byte from the receive data register */
     usart3_rx_buffer[usart3_rx_counter++] = usart_data_receive(USART3);
@@ -192,7 +192,7 @@ void USART3_IRQHandler(void)
     }
   }
 
-  if(usart_flag_get(USART3, USART_TDBE_FLAG) != RESET)
+  if(usart_interrupt_flag_get(USART3, USART_TDBE_FLAG) != RESET)
   {
     /* write one byte to the transmit data register */
     usart_data_transmit(USART3, usart3_tx_buffer[usart3_tx_counter++]);

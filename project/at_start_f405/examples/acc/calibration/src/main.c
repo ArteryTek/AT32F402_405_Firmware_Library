@@ -134,7 +134,7 @@ void OTG_IRQ_HANDLER(void)
   */
 void ACC_IRQHandler(void)
 {
-  if(acc_flag_get(ACC_CALRDY_FLAG) != RESET)
+  if(acc_interrupt_flag_get(ACC_CALRDY_FLAG) != RESET)
   {
     at32_led_on(LED2);
     at32_led_off(LED3);
@@ -142,7 +142,7 @@ void ACC_IRQHandler(void)
     /* clear acc calibration ready flag */
     acc_flag_clear(ACC_CALRDY_FLAG);
   }
-  if(acc_flag_get(ACC_RSLOST_FLAG) != RESET)
+  if(acc_interrupt_flag_get(ACC_RSLOST_FLAG) != RESET)
   {
     at32_led_on(LED3);
     at32_led_off(LED2);

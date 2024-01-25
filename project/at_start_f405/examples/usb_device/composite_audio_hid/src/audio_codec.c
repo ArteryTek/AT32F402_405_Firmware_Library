@@ -209,6 +209,10 @@ void audio_codec_set_mic_volume(uint16_t volume)
 {
   /* wm8988 adc have 256 steps */
   audio_codec.mic_volume = volume;
+  if(audio_codec.mic_volume > 0xFF)
+  {
+    audio_codec.mic_volume = 0xFF;
+  }
 }
 
 /**
@@ -666,12 +670,12 @@ void DMA1_Channel3_IRQHandler(void)
   uint16_t half_size = audio_codec.spk_tx_size;
   uint16_t *pdst;
 
-  if(dma_flag_get(DMA1_HDT3_FLAG) == SET)
+  if(dma_interrupt_flag_get(DMA1_HDT3_FLAG) == SET)
   {
     pdst = spk_dma_buffer;
     dma_flag_clear(DMA1_HDT3_FLAG);
   }
-  else if(dma_flag_get(DMA1_FDT3_FLAG) == SET)
+  else if(dma_interrupt_flag_get(DMA1_FDT3_FLAG) == SET)
   {
     pdst = spk_dma_buffer + half_size;
     dma_flag_clear(DMA1_FDT3_FLAG);
@@ -739,12 +743,12 @@ void DMA1_Channel4_IRQHandler(void)
   uint16_t *psrc;
   uint16_t len = audio_codec.mic_rx_size << 1;
 
-  if(dma_flag_get(DMA1_HDT4_FLAG) == SET)
+  if(dma_interrupt_flag_get(DMA1_HDT4_FLAG) == SET)
   {
     dma_flag_clear(DMA1_HDT4_FLAG);
     psrc = mic_dma_buffer;
   }
-  else if(dma_flag_get(DMA1_FDT4_FLAG) == SET)
+  else if(dma_interrupt_flag_get(DMA1_FDT4_FLAG) == SET)
   {
     psrc = mic_dma_buffer + audio_codec.mic_rx_size;
     dma_flag_clear(DMA1_FDT4_FLAG);
@@ -962,7 +966,3 @@ error_status audio_codec_loop(void)
 /**
   * @}
   */
-
-
-
-

@@ -144,7 +144,7 @@ void SysTick_Handler(void)
   */
  void SPI1_IRQHandler(void)
 {
-  if(spi_i2s_flag_get(SPI1, SPI_I2S_RDBF_FLAG) != RESET)
+  if(spi_i2s_interrupt_flag_get(SPI1, SPI_I2S_RDBF_FLAG) != RESET)
   {
     spi_i2s_buffer_rx[rx_index++] = spi_i2s_data_receive(SPI1);
   }
@@ -157,7 +157,7 @@ void SysTick_Handler(void)
   */
 void I2SF5_IRQHandler(void)
 {
-  if(spi_i2s_flag_get(I2SF5, SPI_I2S_TDBE_FLAG) != RESET)
+  if(spi_i2s_interrupt_flag_get(I2SF5, SPI_I2S_TDBE_FLAG) != RESET)
   {
     spi_i2s_data_transmit(I2SF5, i2sf5_buffer_tx[tx_index++]);
     if(tx_index == TXBUF_SIZE)

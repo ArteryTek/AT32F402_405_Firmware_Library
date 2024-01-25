@@ -444,7 +444,6 @@ typedef struct
   */
 typedef struct
 {
-  uint8_t                                brk_filter_value;    /*!< tmr brake filter value */
   uint8_t                                deadtime;            /*!< dead-time generator setup */
   tmr_brk_polarity_type                  brk_polarity;        /*!< tmr brake polarity */
   tmr_wp_level_type                      wp_level;            /*!< write protect configuration */
@@ -994,6 +993,7 @@ void tmr_force_output_set(tmr_type *tmr_x,  tmr_channel_select_type tmr_channel,
 void tmr_dma_control_config(tmr_type *tmr_x, tmr_dma_transfer_length_type dma_length, \
                             tmr_dma_address_type dma_base_address);
 void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct);
+void tmr_brk_filter_value_set(tmr_type *tmr_x, uint8_t filter_value);
 void tmr_iremap_config(tmr_type *tmr_x, tmr_input_remap_type input_remap);
 
 /**

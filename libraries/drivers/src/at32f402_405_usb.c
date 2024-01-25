@@ -1053,34 +1053,34 @@ void usb_hch_halt(otg_global_type *usbx, uint8_t chn)
     {
       usb_chh->hcchar_bit.chena = FALSE;
       usb_chh->hcchar_bit.chena = TRUE;
+      do
+      {
+        if(count ++ > 1000)
+          break;
+      }while(usb_chh->hcchar_bit.chena == SET);
     }
     else
     {
       usb_chh->hcchar_bit.chena = TRUE;
     }
-    do
-    {
-      if(count ++ > 1000)
-        break;
-    }while(usb_chh->hcchar_bit.chena == SET);
   }
   else
-  {
+  { 
     usb_chh->hcchar_bit.chdis = TRUE;
     if((usb_host->hptxsts_bit.ptxqspcavil) == 0)
     {
       usb_chh->hcchar_bit.chena = FALSE;
       usb_chh->hcchar_bit.chena = TRUE;
+      do
+      {
+        if(count ++ > 1000)
+          break;
+      }while(usb_chh->hcchar_bit.chena == SET);
     }
     else
     {
       usb_chh->hcchar_bit.chena = TRUE;
     }
-    do
-    {
-      if(count ++ > 1000)
-        break;
-    }while(usb_chh->hcchar_bit.chena == SET);
   }
 }
 

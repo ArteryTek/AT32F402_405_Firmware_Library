@@ -66,9 +66,7 @@ static usb_sts_type uhost_init_handler(void *uhost)
   usbh_core_type *puhost = (usbh_core_type *)uhost;
   usb_sts_type status = USB_OK;
   uint8_t hidx, eptidx = 0;
-  usbh_hid_type *phid =  &usbh_hid;
-
-  puhost->class_handler->pdata = &usbh_hid;
+  usbh_hid_type *phid =  (usbh_hid_type *) puhost->class_handler->pdata;
 
   /* get hid interface */
   hidx = usbh_find_interface(puhost, USB_CLASS_CODE_HID, 0x01, 0xFF);
@@ -114,7 +112,7 @@ static usb_sts_type uhost_init_handler(void *uhost)
       phid->out_maxpacket = puhost->dev.cfg_desc.interface[hidx].endpoint[eptidx].wMaxPacketSize;
       phid->out_poll = puhost->dev.cfg_desc.interface[hidx].endpoint[eptidx].bInterval;
 
-      phid->chout = usbh_alloc_channel(puhost, usbh_hid.eptout);
+      phid->chout = usbh_alloc_channel(puhost, phid->eptout);
       /* enable channel */
       usbh_hc_open(puhost, phid->chout, phid->eptout,
                     puhost->dev.address, EPT_INT_TYPE,

@@ -140,7 +140,7 @@ void SysTick_Handler(void)
   */
 void ADC1_IRQHandler(void)
 {
-  if(adc_flag_get(ADC1, ADC_VMOR_FLAG) != RESET)
+  if(adc_interrupt_flag_get(ADC1, ADC_VMOR_FLAG) != RESET)
   {
     adc_flag_clear(ADC1, ADC_VMOR_FLAG);
     vmor_flag_index++;

@@ -209,6 +209,10 @@ void audio_codec_set_mic_volume(uint16_t volume)
 {
   /* wm8988 adc have 256 steps */
   audio_codec.mic_volume = volume;
+  if(audio_codec.mic_volume > 0xFF)
+  {
+    audio_codec.mic_volume = 0xFF;
+  }
 }
 
 /**
