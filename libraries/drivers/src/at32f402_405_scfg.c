@@ -114,18 +114,11 @@ void scfg_pvm_lock_enable(confirm_state new_state)
 /**
   * @brief  scfg sram odd parity error status get
   * @param  none
-  * @retval return sram odd parity error status (ERROR or SUCCESS)
+  * @retval return sram odd parity error status(SET or RESET)
   */
-error_status scfg_sram_operr_status_get(void)
+flag_status scfg_sram_operr_status_get(void)
 {
-  error_status status = SUCCESS;
-
-  if(SCFG->cfg2_bit.sram_operr_sts)
-    status = ERROR;
-  else
-    status = SUCCESS;
-
-  return status ;
+  return (flag_status)SCFG->cfg2_bit.sram_operr_sts;
 }
 
 /**

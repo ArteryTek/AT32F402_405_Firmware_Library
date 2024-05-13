@@ -35,18 +35,6 @@
 #define QSPI_FIFO_DEPTH                  (32*4)
 #define FLASH_PAGE_PROGRAM_SIZE          256
 
-/**
-  * @brief  user function to check timeout or not
-  * @param  user_func_check_timeout: the pointer for qspi_cmd_type parameter
-  * @retval TRUE if timeout, FALSE if not.
-  */
-confirm_state user_func_check_timeout(void)
-{
-  /* add your timeout check mechanism here */
-  return FALSE;
-}
-
-
 qspi_cmd_type esmt32m_cmd_config;
 volatile flag_status qspi_state_is_busy = RESET;
 
@@ -236,12 +224,6 @@ void qspi_data_read(uint32_t addr, uint32_t total_len, uint8_t* buf)
     }
     while(qspi_flag_get(QSPI1, QSPI_RXFIFORDY_FLAG) == RESET)
     {
-      //user can add timeout check here
-      if(user_func_check_timeout())
-      {
-        //add your error handling here.
-        while(1);
-      }
     }
     for(i = 0; i < len; ++i)
     {
@@ -253,12 +235,6 @@ void qspi_data_read(uint32_t addr, uint32_t total_len, uint8_t* buf)
   /* wait command completed */
   while(qspi_command_is_busy() != RESET)
   {
-    //user can add timeout check here
-    if(user_func_check_timeout())
-    {
-      //add your error handling here.
-      while(1);
-    }
   }
 
 }
@@ -292,12 +268,6 @@ void qspi_data_write(uint32_t addr, uint32_t total_len, uint8_t* buf)
     {
       while(qspi_flag_get(QSPI1, QSPI_TXFIFORDY_FLAG) == RESET)
       {
-        //user can add timeout check here
-        if(user_func_check_timeout())
-        {
-          //add your error handling here.
-          while(1);
-        }
       }
       qspi_byte_write(QSPI1, *buf++);
     }
@@ -307,12 +277,6 @@ void qspi_data_write(uint32_t addr, uint32_t total_len, uint8_t* buf)
     /* wait command completed */
     while(qspi_command_is_busy() != RESET)
     {
-      //user can add timeout check here
-      if(user_func_check_timeout())
-      {
-        //add your error handling here.
-        while(1);
-      }
     }
 
     qspi_busy_check();
@@ -338,12 +302,6 @@ void qspi_erase(uint32_t sec_addr)
   /* wait command completed */
   while(qspi_command_is_busy() != RESET)
   {
-    //user can add timeout check here
-    if(user_func_check_timeout())
-    {
-      //add your error handling here.
-      while(1);
-    }
   }
 
   qspi_busy_check();
@@ -365,12 +323,6 @@ void qspi_busy_check(void)
   /* wait command completed */
   while(qspi_command_is_busy() != RESET)
   {
-    //user can add timeout check here
-    if(user_func_check_timeout())
-    {
-      //add your error handling here.
-      while(1);
-    }
   }
 }
 
@@ -390,12 +342,6 @@ void qspi_write_enable(void)
   /* wait command completed */
   while(qspi_command_is_busy() != RESET)
   {
-    //user can add timeout check here
-    if(user_func_check_timeout())
-    {
-      //add your error handling here.
-      while(1);
-    }
   }
 
 }

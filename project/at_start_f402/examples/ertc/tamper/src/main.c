@@ -57,6 +57,12 @@ void ertc_clock_config(void);
   */
 int main(void)
 {
+  /* pre-configuration for pc13, for more detailed information. please refer to the errata document.*/
+  if((CRM->ctrlsts_bit.porrstf == SET) && (CRM->ctrlsts_bit.swrstf == RESET))
+  {
+    NVIC_SystemReset();
+  }
+  
   /* The maximum frequency of the AHB is 120 MHz while accessing to
      CRM_BPDC and CRM_CTRLSTS registers. */
   ertc_clock_config();

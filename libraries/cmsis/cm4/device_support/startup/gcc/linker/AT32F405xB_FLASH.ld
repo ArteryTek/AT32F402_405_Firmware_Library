@@ -4,7 +4,7 @@
 **  File        : AT32F405xB_FLASH.ld
 **
 **  Abstract    : Linker script for AT32F405xB Device with
-**                128KByte FLASH, 64KByte RAM
+**                128KByte FLASH, 70KByte RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -22,7 +22,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20010000;    /* end of RAM */
+_estack = 0x20011800;    /* end of RAM */
 
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
@@ -32,7 +32,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
 FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 256K
-RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 64K
+RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 70K
 }
 
 /* Define output sections */

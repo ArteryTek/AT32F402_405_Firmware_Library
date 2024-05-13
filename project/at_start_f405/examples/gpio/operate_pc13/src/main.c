@@ -65,6 +65,12 @@ void gpio_config(void)
   */
 int main(void)
 {
+  /* pre-configuration for pc13, for more detailed information. please refer to the errata document.*/
+  if((CRM->ctrlsts_bit.porrstf == SET) && (CRM->ctrlsts_bit.swrstf == RESET))
+  {
+    NVIC_SystemReset();
+  }
+  
   system_clock_config();
   
   gpio_config();

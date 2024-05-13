@@ -378,7 +378,7 @@ void usbh_hch_out_handler(usbh_core_type *uhost, uint8_t chn)
     }
     else if(uhost->hch[chn].state == HCH_STALL)
     {
-      uhost->hch[chn].urb_sts = URB_STALL;
+      uhost->urb_state[chn] = URB_STALL;
     }
     else if(uhost->hch[chn].state == HCH_XACTERR ||
             uhost->hch[chn].state == HCH_DATATGLERR)
@@ -420,7 +420,6 @@ void usbh_hch_out_handler(usbh_core_type *uhost, uint8_t chn)
       uhost->err_cnt[chn] ++;
       uhost->hch[chn].state = HCH_XACTERR;
       usb_hch_halt(usbx, chn);
-//      usb_chh->hcint = USB_OTG_HC_XACTERR_FLAG | USB_OTG_HC_NAK_FLAG;
     }
     usb_chh->hcint = USB_OTG_HC_XACTERR_FLAG;
   }

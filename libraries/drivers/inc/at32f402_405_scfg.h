@@ -275,7 +275,7 @@ void scfg_infrared_config(scfg_ir_source_type source, scfg_ir_polarity_type pola
 scfg_mem_map_type scfg_mem_map_get(void);
 void scfg_i2s_full_duplex_config(scfg_i2s_type i2s_full_duplex);
 void scfg_pvm_lock_enable(confirm_state new_state);
-error_status scfg_sram_operr_status_get(void);
+flag_status scfg_sram_operr_status_get(void);
 void scfg_sram_operr_lock_enable(confirm_state new_state);
 void scfg_lockup_enable(confirm_state new_state);
 void scfg_exint_line_config(scfg_port_source_type port_source, scfg_pins_source_type pin_source);

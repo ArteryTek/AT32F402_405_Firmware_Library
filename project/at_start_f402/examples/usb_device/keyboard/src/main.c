@@ -192,38 +192,47 @@ int main(void)
      /* enter deep sleep */
     if(((keyboard_type *)(otg_core_struct.dev.class_handler->pdata))->hid_suspend_flag == 1)
     {
-      at32_led_off(LED2);
-      at32_led_off(LED3);
-      at32_led_off(LED4);
-     /* select system clock source as hick before ldo set */
-      crm_sysclk_switch(CRM_SCLK_HICK);
-
-      /* wait till hick is used as system clock source */
-      while(crm_sysclk_switch_status_get() != CRM_SCLK_HICK)
+      __disable_irq();
+      
+      if(OTG_PCGCCTL(otg_core_struct.usb_reg)->pcgcctl_bit.suspendm == 1
+         && usb_suspend_status_get(otg_core_struct.usb_reg) == 1)
       {
-      }
-      
-      /* initialize the low power mode only for at32f402xx
-       this function has a 5ms delay using an 8MHz system clock.
-       in addition, to enter this low power mode, need to enable 
-       the PLL or HEXT.*/
-      low_power_init();
-      
-	  /* reduce ldo before enter deepsleep mode */
-      pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
-	  
-      /* congfig the voltage regulator mode */
-      pwc_voltage_regulate_set(PWC_REGULATOR_LOW_POWER);
+        at32_led_off(LED2);
+        at32_led_off(LED3);
+        at32_led_off(LED4);
+        
+        /* select system clock source as hick before ldo set */
+        crm_sysclk_switch(CRM_SCLK_HICK);
 
-      /* enter deep sleep mode */
-      pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);
-      /* wait clock stable */
-      delay_us(120);
-	  
-	  /* resume ldo before system clock source enhance */
-      pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V3);
-      system_clock_recover();
+        /* wait till hick is used as system clock source */
+        while(crm_sysclk_switch_status_get() != CRM_SCLK_HICK)
+        {
+        }
+        
+        /* initialize the low power mode only for at32f402xx
+         this function has a 5ms delay using an 8MHz system clock.
+         in addition, to enter this low power mode, need to enable 
+         the PLL or HEXT.*/
+        low_power_init();
+        
+        /* reduce ldo before enter deepsleep mode */
+        pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
+        
+        /* congfig the voltage regulator mode */
+        pwc_voltage_regulate_set(PWC_REGULATOR_ON);
+
+        /* enter deep sleep mode */
+        pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);
+        /* wait clock stable */
+        delay_us(120);
+        
+      /* resume ldo before system clock source enhance */
+        pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V3);
+        
+        system_clock_recover();
+      }
       ((keyboard_type *)(otg_core_struct.dev.class_handler->pdata))->hid_suspend_flag = 0;
+      __enable_irq();
       at32_led_on(LED2);
       at32_led_on(LED3);
       at32_led_on(LED4);

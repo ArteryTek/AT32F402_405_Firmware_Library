@@ -24,6 +24,7 @@
 
 /* includes ------------------------------------------------------------------*/
 #include "at32f402_405_int.h"
+#include "at32f402_405_board.h"
 
 /** @addtogroup AT32F402_periph_examples
   * @{
@@ -36,6 +37,11 @@
   */
 void NMI_Handler(void)
 {
+  if(scfg_sram_operr_status_get()==SET)
+  {
+    SCFG->cfg2_bit.sram_operr_sts = TRUE;
+    at32_led_on(LED2);
+  }
 }
 
 /**

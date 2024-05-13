@@ -148,27 +148,36 @@ int main(void)
      /* enter deep sleep */
     if(((keyboard_type *)(otg_core_struct.dev.class_handler->pdata))->hid_suspend_flag == 1)
     {
-      at32_led_off(LED2);
-      at32_led_off(LED3);
-      at32_led_off(LED4);
+      __disable_irq();
+      
+      if(OTG_PCGCCTL(otg_core_struct.usb_reg)->pcgcctl_bit.suspendm == 1
+         && usb_suspend_status_get(otg_core_struct.usb_reg) == 1)
+      {
+        at32_led_off(LED2);
+        at32_led_off(LED3);
+        at32_led_off(LED4);
 #ifdef USB_OTG_HS
-      otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = TRUE;
+        otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = TRUE;
 #endif
-      /* congfig the voltage regulator mode */
-      pwc_voltage_regulate_set(PWC_REGULATOR_LOW_POWER);
+        /* congfig the voltage regulator mode */
+        pwc_voltage_regulate_set(PWC_REGULATOR_ON);
 
-      /* enter deep sleep mode */
-      pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);
-      /* wait clock stable */
-      delay_us(120);
-	  
-      system_clock_recover();
-      ((keyboard_type *)(otg_core_struct.dev.class_handler->pdata))->hid_suspend_flag = 0;
+        /* enter deep sleep mode */
+        pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);
+        /* wait clock stable */
+        delay_us(120);
+      
+        system_clock_recover();
 #ifdef USB_OTG_HS
-      otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = FALSE;
-      delay_ms(2);
-      usb_open_phy_clk(otg_core_struct.usb_reg);
+        otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = FALSE;
+        delay_ms(2);
+        usb_open_phy_clk(otg_core_struct.usb_reg);
 #endif
+      }
+      ((keyboard_type *)(otg_core_struct.dev.class_handler->pdata))->hid_suspend_flag = 0;
+      
+      __enable_irq();
+      
       at32_led_on(LED2);
       at32_led_on(LED3);
       at32_led_on(LED4);

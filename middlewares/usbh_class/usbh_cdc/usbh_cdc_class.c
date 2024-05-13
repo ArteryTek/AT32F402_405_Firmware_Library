@@ -438,7 +438,7 @@ void cdc_start_transmission(usbh_core_type *uhost, uint8_t *data, uint32_t len)
   * @param  uhost: to the structure of usbh_core_type
   * @retval status: usb_sts_type status
   */
-__weak void cdc_transmit_complete(usbh_core_type *uhost)
+__WEAK void cdc_transmit_complete(usbh_core_type *uhost)
 {
   
 }
@@ -512,7 +512,7 @@ void cdc_start_reception(usbh_core_type *uhost, uint8_t *data, uint32_t len)
   * @param  uhost: to the structure of usbh_core_type
   * @retval status: usb_sts_type status
   */
-__weak void cdc_receive_complete(usbh_core_type *uhost)
+__WEAK void cdc_receive_complete(usbh_core_type *uhost)
 {
   
 }

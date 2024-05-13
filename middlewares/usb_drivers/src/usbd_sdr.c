@@ -282,6 +282,33 @@ static usb_sts_type usbd_set_feature(usbd_core_type *udev)
     udev->class_handler->setup_handler(udev, &udev->setup);
     usbd_ctrl_send_status(udev);
   }
+  else if(setup->wValue == USB_FEATURE_TEST_MODE && ((setup->wIndex & 0xFF) == 0x00))
+  {
+    switch((uint8_t)(setup->wIndex >> 8))
+    {
+      case 1: /* Test_J */
+        udev->test_mode = 1;
+        break;
+      case 2: /* Test_K */
+        udev->test_mode = 2;
+        break;
+      case 3: /* Test_SE0_NAK */
+        udev->test_mode = 3;
+        break;
+      case 4: /* Test_Packet */
+        udev->test_mode = 4;
+        break;
+      case 5: /* Test_Force_Enable */
+        udev->test_mode = 5;
+        break;
+      default:
+        udev->test_mode = 0;
+        ret = USB_NOT_SUPPORT;
+        usbd_ctrl_unsupport(udev);
+        return ret;
+    }
+    usbd_ctrl_send_status(udev);
+  }
   else
   {
     usbd_ctrl_unsupport(udev);

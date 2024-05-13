@@ -34,50 +34,6 @@
   */
 
 /**
-  * @brief  initialize the low power mode only for at32f402xx
-  *         this function has a 10ms delay using an 8MHz system clock.
-  *         in addition, to enter this low power mode, need to enable 
-  *         the PLL or HEXT.
-  * @param  none
-  * @retval none
-  */
-void low_power_init(void)
-{
-#ifdef AT32F402xx 
-  volatile uint32_t delay = 8000;
-  if(CRM->ctrl_bit.hextstbl)
-  {
-    *(__IO uint32_t *)0x40023878 = 0x00;
-  }
-  else if(CRM->ctrl_bit.pllstbl == SET)
-  {
-    CRM->pllcfg_bit.plluen = TRUE;
-    while(CRM->ctrl_bit.pllstbl != SET || CRM->ctrl_bit.pllustbl != SET);
-    *(__IO uint32_t *)0x40023878 = 0x10;
-  }
-  else
-  {
-    /* the pll or hext need to be enable */
-    return;
-  }
-  CRM->ahben1 |= 1 << 29;
-  *(__IO uint32_t *)0x40040038 = 0x210000;
-  *(__IO uint32_t *)0x4004000C |= 0x40000000;
-  *(__IO uint32_t *)0x40040804 &= ~0x2;
-  while(delay --)
-  {
-    if(*(__IO uint32_t *)0x40040808 & 0x1)
-      break;      
-  }
-  *(__IO uint32_t *)0x40040038 |= 0x400000;
-  *(__IO uint32_t *)0x40040E00 |= 0x1;  
-  *(__IO uint32_t *)0x40040038 &= ~0x10000;
-  *(__IO uint32_t *)0x40023878 = 0x0;
-#endif
-  return;
-}
-
-/**
   * @brief  configure the ertc clock source.
   * @param  none
   * @retval none
@@ -263,17 +219,12 @@ int main(void)
     while(crm_sysclk_switch_status_get() != CRM_SCLK_HICK)
     {
     }
-    /* initialize the low power mode only for at32f402xx
-       this function has a 5ms delay using an 8MHz system clock.
-       in addition, to enter this low power mode, need to enable 
-       the PLL or HEXT.*/
-    low_power_init();
     
     /* reduce ldo before enter deepsleep mode */
     pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
 
     /* congfig the voltage regulator mode */
-    pwc_voltage_regulate_set(PWC_REGULATOR_LOW_POWER);
+    pwc_voltage_regulate_set(PWC_REGULATOR_EXTRA_LOW_POWER);
 
     /* enter deep sleep mode */
     pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);

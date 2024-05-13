@@ -1,7 +1,7 @@
 /**
   **************************************************************************
-  * @file     at32f425_adc.h
-  * @brief    at32f425 adc header file
+  * @file     at32f402_405_adc.h
+  * @brief    at32f402_405 adc header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
@@ -34,7 +34,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "at32f402_405.h"
 
-/** @addtogroup AT32F425_periph_driver
+/** @addtogroup AT32F402_405_periph_driver
   * @{
   */
 

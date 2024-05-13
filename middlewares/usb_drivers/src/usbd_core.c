@@ -81,6 +81,11 @@ void usbd_core_in_handler(usbd_core_type *udev, uint8_t ept_addr)
 
       }
     }
+    if(udev->test_mode)
+    {
+      OTG_DEVICE(udev->usb_reg)->dctl_bit.tstctl = udev->test_mode;
+      udev->test_mode = 0;
+    }
   }
   else if(udev->class_handler->in_handler != 0 &&
           udev->conn_state == USB_CONN_STATE_CONFIGURED)
@@ -160,6 +165,7 @@ void usbd_core_setup_handler(usbd_core_type *udev, uint8_t ept_num)
       usbd_endpoint_request(udev);
       break;
     default:
+      usbd_ctrl_unsupport(udev);
       break;
   }
 }
@@ -826,6 +832,8 @@ usb_sts_type usbd_core_init(usbd_core_type *udev,
   udev->device_addr = 0;
   udev->class_handler = class_handler;
   udev->desc_handler = desc_handler;
+  udev->test_mode = 0;
+
   /* set device disconnect */
   usbd_disconnect(udev);
 
