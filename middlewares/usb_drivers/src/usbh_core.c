@@ -126,7 +126,7 @@ usb_sts_type usbh_in_out_request(usbh_core_type *uhost, uint8_t hc_num)
   /* set usb channel transmit count to zero */
   uhost->hch[hc_num].trans_count = 0;
 #ifdef USB_OTG_HS
-  if(uhost->speed == USB_HIGH_SPEED)
+  if(uhost->hch[hc_num].speed == USB_HIGH_SPEED)
   {
     if((uhost->dma_en) && ((uhost->hch[hc_num].ept_type == EPT_CONTROL_TYPE) ||
     (uhost->hch[hc_num].ept_type == EPT_BULK_TYPE)))
@@ -181,7 +181,20 @@ usb_sts_type usbh_in_out_request(usbh_core_type *uhost, uint8_t hc_num)
 #endif
   /* set odd frame */
   ch->hcchar_bit.oddfrm = !(OTG_HOST(uhost->usb_reg)->hfnum & 0x1);
-
+  
+  /*wait tx fifo avail*/
+  if((uhost->hch[hc_num].ept_type == EPT_CONTROL_TYPE ||
+    uhost->hch[hc_num].ept_type == EPT_BULK_TYPE) && uhost->hch[hc_num].dir == 0)
+  {
+    uint32_t timeout = 0;
+    uint32_t size_value = uhost->hch[hc_num].maxpacket >  uhost->hch[hc_num].trans_len ? 
+                          uhost->hch[hc_num].trans_len:uhost->hch[hc_num].maxpacket;
+    do
+    {
+      if(timeout ++ > 100000)
+        break;
+    }while((usbx->gnptxsts_bit.nptxfspcavail * 4) < size_value || usbx->gnptxsts_bit.nptxqspcavail == 0);
+  }
   /* clear channel disable bit and enable channel */
   tmp = ch->hcchar;
   tmp &= ~(USB_OTG_HCCHAR_CHDIS);

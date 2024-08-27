@@ -26,7 +26,7 @@
 #include "at32f402_405_clock.h"
 
 #define ADC_VREF                         (3.3)
-#define ADC_TEMP_BASE                    (0.492)
+#define ADC_TEMP_BASE                    (0.490)
 #define ADC_TEMP_SLOPE                   (-0.00169)
 
 /** @addtogroup AT32F405_periph_examples

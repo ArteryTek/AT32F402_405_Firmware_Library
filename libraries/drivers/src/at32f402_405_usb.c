@@ -447,7 +447,8 @@ void usb_read_packet(otg_global_type *usbx, uint8_t *pusr_buf, uint16_t num, uin
   uint32_t n_index;
   uint32_t nhbytes = (nbytes + 3) / 4;
   uint32_t *pbuf = (uint32_t *)pusr_buf;
-
+  
+  UNUSED(num);
   for(n_index = 0; n_index < nhbytes; n_index ++)
   {
 #if defined (__ICCARM__) && (__VER__ < 7000000)
@@ -932,7 +933,7 @@ void usb_hc_enable(otg_global_type *usbx,
     case EPT_BULK_TYPE:
       hch->hcintmsk |= USB_OTG_HC_XFERCM_INT | USB_OTG_HC_STALLM_INT |
                        USB_OTG_HC_XACTERRM_INT | USB_OTG_HC_NAKM_INT |
-                       USB_OTG_HC_DTGLERRM_INT;
+                       USB_OTG_HC_DTGLERRM_INT | USB_OTG_HC_AHBERRM_INT;
       if(ept_num & 0x80)
       {
         hch->hcintmsk_bit.bblerrmsk = TRUE;
@@ -948,12 +949,13 @@ void usb_hc_enable(otg_global_type *usbx,
     case EPT_INT_TYPE:
       hch->hcintmsk |= USB_OTG_HC_XFERCM_INT | USB_OTG_HC_STALLM_INT |
                        USB_OTG_HC_XACTERRM_INT | USB_OTG_HC_NAKM_INT |
-                       USB_OTG_HC_DTGLERRM_INT | USB_OTG_HC_FRMOVRRUN_INT;
+                       USB_OTG_HC_DTGLERRM_INT | USB_OTG_HC_FRMOVRRUN_INT |
+		                   USB_OTG_HC_AHBERRM_INT;
       break;
     case EPT_ISO_TYPE:
 
       hch->hcintmsk |= USB_OTG_HC_XFERCM_INT | USB_OTG_HC_ACKM_INT |
-                       USB_OTG_HC_FRMOVRRUN_INT;
+                       USB_OTG_HC_FRMOVRRUN_INT | USB_OTG_HC_AHBERRM_INT;
       break;
   }
   usb_host->haintmsk |= 1 << chn;
@@ -1001,28 +1003,19 @@ void usb_host_disable(otg_global_type *usbx)
   otg_host_type *usb_host = OTG_HOST(usbx);
 
   usbx->gahbcfg_bit.glbintmsk = FALSE;
-  usb_flush_rx_fifo(usbx);
-  usb_flush_tx_fifo(usbx, 0x10);
-
   for(i_index = 0; i_index < 16; i_index ++)
   {
     hch = USB_CHL(usbx, i_index);
-    hch->hcchar_bit.chdis = TRUE;
-    hch->hcchar_bit.chena = FALSE;
-    hch->hcchar_bit.eptdir = 0;
-  }
-
-  for(i_index = 0; i_index < 16; i_index ++)
-  {
-    hch = USB_CHL(usbx, i_index);
-    hch->hcchar_bit.chdis = TRUE;
-    hch->hcchar_bit.chena = TRUE;
-    hch->hcchar_bit.eptdir = 0;
-    do
+    if(hch->hcchar_bit.chena == TRUE)
     {
-      if(count ++ > 1000)
-        break;
-    }while(hch->hcchar_bit.chena);
+      hch->hcchar_bit.chdis = TRUE;
+      hch->hcchar_bit.chena = TRUE;
+      do
+      {
+        if(count ++ > 1000)
+          break;
+      }while(hch->hcchar_bit.chena);
+    }
   }
   usb_host->haint = 0xFFFFFFFF;
   usbx->gintsts = 0xFFFFFFFF;
@@ -1044,6 +1037,14 @@ void usb_hch_halt(otg_global_type *usbx, uint8_t chn)
   otg_hchannel_type *usb_chh = USB_CHL(usbx, chn);
   otg_host_type *usb_host = OTG_HOST(usbx);
   
+	if((usbx->gahbcfg_bit.dmaen == TRUE && usb_chh->hcsplt_bit.spltena == 0) &&
+    ((usb_chh->hcchar_bit.chena == FALSE) || 
+    (usb_chh->hcchar_bit.eptype == EPT_INT_TYPE) || 
+    (usb_chh->hcchar_bit.eptype == EPT_ISO_TYPE)))
+	{
+		return;
+	}
+  
   /* endpoint type is control or bulk */
   if(usb_chh->hcchar_bit.eptype == EPT_CONTROL_TYPE || 
      usb_chh->hcchar_bit.eptype == EPT_BULK_TYPE)
@@ -1053,16 +1054,16 @@ void usb_hch_halt(otg_global_type *usbx, uint8_t chn)
     {
       usb_chh->hcchar_bit.chena = FALSE;
       usb_chh->hcchar_bit.chena = TRUE;
-      do
-      {
-        if(count ++ > 1000)
-          break;
-      }while(usb_chh->hcchar_bit.chena == SET);
     }
     else
     {
       usb_chh->hcchar_bit.chena = TRUE;
     }
+    do
+    {
+      if(count ++ > 1000)
+        break;
+    }while(usb_chh->hcchar_bit.chena == SET);
   }
   else
   { 
@@ -1071,16 +1072,16 @@ void usb_hch_halt(otg_global_type *usbx, uint8_t chn)
     {
       usb_chh->hcchar_bit.chena = FALSE;
       usb_chh->hcchar_bit.chena = TRUE;
-      do
-      {
-        if(count ++ > 1000)
-          break;
-      }while(usb_chh->hcchar_bit.chena == SET);
     }
     else
     {
       usb_chh->hcchar_bit.chena = TRUE;
     }
+    do
+    {
+      if(count ++ > 1000)
+        break;
+    }while(usb_chh->hcchar_bit.chena == SET);
   }
 }
 

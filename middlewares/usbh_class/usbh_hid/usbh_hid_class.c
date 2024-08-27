@@ -121,6 +121,10 @@ static usb_sts_type uhost_init_handler(void *uhost)
       usbh_set_toggle(puhost, phid->chout, 0);
     }
   }
+  
+  if(phid->in_poll < 10)
+    phid->in_poll = 10;
+  
   phid->ctrl_state = USB_HID_STATE_IDLE;
   return status;
 }
@@ -400,11 +404,11 @@ static usb_sts_type uhost_process_handler(void *uhost)
       break;
 
     case USB_HID_POLL:
-      if((usbh_get_frame(puhost->usb_reg) - phid->poll_timer) >= phid->in_poll )
+      if((usbh_get_frame(puhost->usb_reg) - phid->poll_timer) >= phid->in_poll)
       {
         phid->state = USB_HID_GET;
       }
-      else
+      /* else */
       {
         urb_status = usbh_get_urb_status(puhost, phid->chin);
         if(urb_status == URB_DONE)
@@ -418,7 +422,11 @@ static usb_sts_type uhost_process_handler(void *uhost)
           {
             usbh_hid_keyboard_decode((uint8_t *)phid->buffer);
           }
-
+          phid->state = USB_HID_GET;
+        }
+        else if(urb_status == URB_NOTREADY)
+        {
+          phid->state = USB_HID_GET;
         }
         else if(urb_status == URB_STALL)
         {

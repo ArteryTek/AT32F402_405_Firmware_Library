@@ -14,10 +14,8 @@
         <TargetCommonOption>
           <Device>AT32F405RCT7</Device>
           <Vendor>ArteryTek</Vendor>
-          <Cpu>IRAM(0x20000000,0x19800) IROM(0x08000000,0x40000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"Startup\ArteryTek\AT32F405\startup_at32f23.s" ("AT32F405 Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC1000 -FN1 -AT32F405_256 -FS08000000 -FL400000)</FlashDriverDll>
           <DeviceId>0</DeviceId>
           <RegisterFile>at32f405.h</RegisterFile>
           <MemoryEnv></MemoryEnv>

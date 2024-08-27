@@ -48,20 +48,20 @@ void spiflash_init(void)
   crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_GPIOC_PERIPH_CLOCK, TRUE);
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
-  /* software cs, pb9 as a general io to control flash cs */
+  /* software cs, pb12 as a general io to control flash cs */
   gpio_initstructure.gpio_out_type       = GPIO_OUTPUT_PUSH_PULL;
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;
   gpio_initstructure.gpio_mode           = GPIO_MODE_OUTPUT;
   gpio_initstructure.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_9;
+  gpio_initstructure.gpio_pins           = GPIO_PINS_12;
   gpio_init(GPIOB, &gpio_initstructure);
 
   /* sck */
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;
   gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_1;
+  gpio_initstructure.gpio_pins           = GPIO_PINS_13;
   gpio_init(GPIOB, &gpio_initstructure);
-  gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE1, GPIO_MUX_6);
+  gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE13, GPIO_MUX_5);
 
   /* miso */
   gpio_initstructure.gpio_pull           = GPIO_PULL_UP;

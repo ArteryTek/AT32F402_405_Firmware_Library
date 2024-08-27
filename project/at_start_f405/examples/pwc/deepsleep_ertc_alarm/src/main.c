@@ -104,7 +104,7 @@ void ertc_alarm_config(void)
   /* config the exint line of the ertc alarm */
   exint_init_struct.line_select   = EXINT_LINE_17;
   exint_init_struct.line_enable   = TRUE;
-  exint_init_struct.line_mode     = EXINT_LINE_INTERRUPUT;
+  exint_init_struct.line_mode     = EXINT_LINE_INTERRUPT;
   exint_init_struct.line_polarity = EXINT_TRIGGER_RISING_EDGE;
   exint_init(&exint_init_struct);
 
@@ -199,9 +199,6 @@ int main(void)
 
   /* config priority group */
   nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);
-  
-  /* congfig the voltage regulator mode.only used with deep sleep mode */
-  pwc_voltage_regulate_set(PWC_REGULATOR_EXTRA_LOW_POWER);
 
   /* config ertc or other operations of battery powered domain */
   ertc_config();

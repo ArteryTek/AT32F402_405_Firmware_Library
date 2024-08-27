@@ -208,7 +208,7 @@ extern "C" {
 /**
   * @brief usb high speed support dma mode
   */
- #define OTG_USE_DMA 
+/* #define OTG_USE_DMA */
 
 #define USBH_DEBUG_ENABLE
 

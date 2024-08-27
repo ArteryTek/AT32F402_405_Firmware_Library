@@ -131,8 +131,12 @@ void usbh_sof_handler(usbh_core_type *uhost)
 void usbh_disconnect_handler(usbh_core_type *uhost)
 {
   otg_global_type *usbx = uhost->usb_reg;
+  otg_host_type *usb_host = OTG_HOST(usbx);
 
   uint8_t i_index;
+  
+  if((usb_host->hprt & USB_OTG_HPRT_PRTCONSTS) != 0)
+    return;
 
   usb_host_disable(usbx);
 
@@ -158,8 +162,13 @@ void usbh_hch_in_handler(usbh_core_type *uhost, uint8_t chn)
   otg_global_type *usbx = uhost->usb_reg;
   otg_hchannel_type *usb_chh = USB_CHL(usbx, chn);
   uint32_t hcint_value = usb_chh->hcint & usb_chh->hcintmsk;
-
-  if( hcint_value & USB_OTG_HC_ACK_FLAG)
+  
+  if(hcint_value & USB_OTG_HC_AHBERR_FLAG)
+  {
+    usb_chh->hcint = USB_OTG_HC_AHBERR_FLAG;
+    usb_chh->hcintmsk_bit.chhltdmsk = TRUE;
+  }
+  else if(hcint_value & USB_OTG_HC_ACK_FLAG)
   {
     usb_chh->hcint = USB_OTG_HC_ACK_FLAG;
   }
@@ -244,14 +253,21 @@ void usbh_hch_in_handler(usbh_core_type *uhost, uint8_t chn)
       else
       {
         uhost->urb_state[chn] = URB_NOTREADY;
+        if(usb_chh->hcchar_bit.eptype == EPT_BULK_TYPE || usb_chh->hcchar_bit.eptype == EPT_CONTROL_TYPE)
+        {
+          usb_chh->hcchar_bit.chdis = FALSE;
+          usb_chh->hcchar_bit.chena = TRUE;
+        }
       }
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
+
     }
     else if(uhost->hch[chn].state == HCH_NAK)
     {
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
+      if(usb_chh->hcchar_bit.eptype != EPT_INT_TYPE)
+      {
+        usb_chh->hcchar_bit.chdis = FALSE;
+        usb_chh->hcchar_bit.chena = TRUE;
+      }
       uhost->urb_state[chn] = URB_NOTREADY;
     }
     usb_chh->hcint = USB_OTG_HC_CHHLTD_FLAG;
@@ -269,11 +285,8 @@ void usbh_hch_in_handler(usbh_core_type *uhost, uint8_t chn)
     if(usb_chh->hcchar_bit.eptype == EPT_INT_TYPE)
     {
       uhost->err_cnt[chn] = 0;
-      if(uhost->dma_en == FALSE)
-      {
-        usb_chh->hcintmsk_bit.chhltdmsk = TRUE;
-        usb_hch_halt(usbx, chn);
-      }
+      usb_chh->hcintmsk_bit.chhltdmsk = TRUE;
+      usb_hch_halt(usbx, chn);
     }
     else if(usb_chh->hcchar_bit.eptype == EPT_BULK_TYPE ||
       usb_chh->hcchar_bit.eptype == EPT_CONTROL_TYPE)
@@ -305,8 +318,12 @@ void usbh_hch_out_handler(usbh_core_type *uhost, uint8_t chn)
   otg_global_type *usbx = uhost->usb_reg;
   otg_hchannel_type *usb_chh = USB_CHL(usbx, chn);
   uint32_t hcint_value = usb_chh->hcint & usb_chh->hcintmsk;
-
-  if( hcint_value & USB_OTG_HC_ACK_FLAG)
+  if(hcint_value & USB_OTG_HC_AHBERR_FLAG)
+  {
+    usb_chh->hcint = USB_OTG_HC_AHBERR_FLAG;
+    usb_chh->hcintmsk_bit.chhltdmsk = TRUE;
+  }
+  else if( hcint_value & USB_OTG_HC_ACK_FLAG)
   {
     usb_chh->hcint = USB_OTG_HC_ACK_FLAG;
     if(uhost->hch[chn].do_ping == TRUE)
@@ -392,10 +409,9 @@ void usbh_hch_out_handler(usbh_core_type *uhost, uint8_t chn)
       else
       {
         uhost->urb_state[chn] = URB_NOTREADY;
+        usb_chh->hcchar_bit.chdis = FALSE;
+        usb_chh->hcchar_bit.chena = TRUE;
       }
-
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
     }
     usb_chh->hcint = USB_OTG_HC_CHHLTD_FLAG;
   }

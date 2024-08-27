@@ -12,7 +12,7 @@ define symbol __ICFEDIT_region_SLIB_start__ = 0x08001000;
 define symbol __ICFEDIT_region_SLIB_end__   = 0x08002FFF;
 
 define symbol __ICFEDIT_region_RAM_start__ = 0x20000000;
-define symbol __ICFEDIT_region_RAM_end__   = 0x20016FFF;
+define symbol __ICFEDIT_region_RAM_end__   = 0x20017FFF;
 
 /* SLIB RAM region */
 define symbol __ICFEDIT_region_SLIB_RAM_start__ = 0x20017000;

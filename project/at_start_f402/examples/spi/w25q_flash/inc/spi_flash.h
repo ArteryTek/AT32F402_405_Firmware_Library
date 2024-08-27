@@ -43,8 +43,8 @@
   * @{
   */
 
-#define FLASH_CS_HIGH()                  gpio_bits_set(GPIOB, GPIO_PINS_9)
-#define FLASH_CS_LOW()                   gpio_bits_reset(GPIOB, GPIO_PINS_9)
+#define FLASH_CS_HIGH()                  gpio_bits_set(GPIOB, GPIO_PINS_12)
+#define FLASH_CS_LOW()                   gpio_bits_reset(GPIOB, GPIO_PINS_12)
 
 /**
   * @}
