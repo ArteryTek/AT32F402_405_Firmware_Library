@@ -386,7 +386,7 @@ static usb_sts_type usbd_set_configuration(usbd_core_type *udev)
           udev->class_handler->clear_handler(udev);
           usbd_ctrl_send_status(udev);
         }
-        else if(config_value == udev->dev_config)
+        else if(config_value != udev->dev_config)
         {
           udev->class_handler->clear_handler(udev);
           udev->dev_config = config_value;
@@ -578,6 +578,10 @@ usb_sts_type usbd_endpoint_request(usbd_core_type *udev)
           if((ept_addr != 0x00) && (ept_addr != 0x80))
           {
             usbd_set_stall(udev, ept_addr);
+          }
+          else
+          {
+            usbd_ctrl_unsupport(udev);
           }
           break;
         case USB_CONN_STATE_CONFIGURED:

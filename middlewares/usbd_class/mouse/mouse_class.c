@@ -308,15 +308,15 @@ static usb_sts_type class_event_handler(void *udev, usbd_event_type event)
   */
 usb_sts_type usb_mouse_class_send_report(void *udev, uint8_t *report, uint16_t len)
 {
-  usb_sts_type status = USB_OK;
+  usb_sts_type status = USB_FAIL;
   usbd_core_type *pudev = (usbd_core_type *)udev;
   mouse_type *pmouse = (mouse_type *)pudev->class_handler->pdata;
 
   if(usbd_connect_state_get(pudev) == USB_CONN_STATE_CONFIGURED && pmouse->send_state == 0)
   {
     pmouse->send_state = 1;
-    usbd_flush_tx_fifo(pudev, USBD_MOUSE_IN_EPT);
     usbd_ept_send(pudev, USBD_MOUSE_IN_EPT, report, len);
+    status = USB_OK;
   }
 
   return status;

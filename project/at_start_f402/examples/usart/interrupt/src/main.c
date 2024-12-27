@@ -80,8 +80,8 @@ void usart_configuration(void)
   /* configure the usart3 tx, rx pin */
   gpio_init_struct.gpio_pins = GPIO_PINS_5 | GPIO_PINS_7;
   gpio_init(GPIOA, &gpio_init_struct);
-  gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE10, GPIO_MUX_7);
-  gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE11, GPIO_MUX_7);
+  gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE5, GPIO_MUX_7);
+  gpio_pin_mux_config(GPIOA, GPIO_PINS_SOURCE7, GPIO_MUX_7);
 
   /* config usart nvic interrupt */
   nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);

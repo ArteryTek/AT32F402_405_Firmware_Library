@@ -108,7 +108,8 @@ void tx_data_fill(void)
 
 /**
   * @brief  spi i2s configuration.
-  * @param  none
+  * @param  format: the data channel format to be choose
+  * @param  freq: the audio sampling freq to be choose
   * @retval none
   */
 static void spi_i2s_config(i2s_data_channel_format_type format, i2s_audio_sampling_freq_type freq)
@@ -201,7 +202,8 @@ static void i2sf5_config(i2s_data_channel_format_type format, i2s_audio_sampling
 
 /**
   * @brief  i2sf5 gpio configuration.
-  * @param  none
+  * @param  format: the data channel format to be choose
+  * @param  freq: the audio sampling freq to be choose
   * @retval none
   */
 static void i2sf5_gpio_config(void)

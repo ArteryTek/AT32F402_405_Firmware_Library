@@ -27,7 +27,7 @@
 		<link>
 			<name>bsp/at32f402_405_board.c</name>
 			<type>1</type>
-			<location>D:/worksrc/BSPs_PACKs/AT32F402_405_Firmware_Library_V2.x.x/project/at32f402_405_board/at32f402_405_board.c</location>
+			<locationURI>PARENT-3-PROJECT_LOC/project/at32f402_405_board/at32f402_405_board.c</locationURI>
 		</link>
 		<link>
 			<name>cmsis/startup_at32f402_405.s</name>

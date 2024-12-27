@@ -9,8 +9,8 @@
   fullduplex mode transfer data by dma mode in ti mode.
   the pins connection as follow:
   - spi2                     spi3 
-    pb9(cs)        <--->     pa4(cs)
-    pb1(sck)       <--->     pc10(sck)
+    pb12(cs)       <--->     pa4(cs)
+    pb13(sck)      <--->     pc10(sck)
     pc2(miso)      <--->     pc11 (miso)
     pc3(mosi)      <--->     pc12(mosi)
 

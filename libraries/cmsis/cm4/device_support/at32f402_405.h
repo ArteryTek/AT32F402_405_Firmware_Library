@@ -87,7 +87,7 @@ extern "C" {
 #if defined (AT32F405CBT7)   || defined (AT32F405CCT7)   || defined (AT32F405CBU7) || \
     defined (AT32F405CCU7)
 
-    #define AT32F405Rx
+    #define AT32F405Cx
 #endif
 
 #if defined (AT32F405RBT7_7) || defined (AT32F405RCT7_7) || defined (AT32F405RBT7) || \
@@ -103,7 +103,7 @@ extern "C" {
 #if defined (AT32F402CBT7)   || defined (AT32F402CCT7)   || defined (AT32F402CBU7) || \
     defined (AT32F402CCU7)
 
-    #define AT32F402Rx
+    #define AT32F402Cx
 #endif
 
 #if defined (AT32F402RBT7_7) || defined (AT32F402RCT7_7) || defined (AT32F402RBT7) || \
@@ -159,7 +159,7 @@ extern "C" {
   */
 #define __AT32F402_405_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F402_405_LIBRARY_VERSION_MIDDLE   (0x01) /*!< [23:16] middle version */
-#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x00) /*!< [15:8]  minor version */
+#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x01) /*!< [15:8]  minor version */
 #define __AT32F402_405_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F402_405_LIBRARY_VERSION          ((__AT32F402_405_LIBRARY_VERSION_MAJOR << 24)  | \
                                                  (__AT32F402_405_LIBRARY_VERSION_MIDDLE << 16) | \
