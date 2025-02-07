@@ -216,7 +216,7 @@ int main(void)
         low_power_init();
         
         /* reduce ldo before enter deepsleep mode */
-        pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
+        pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V1);
         
         /* congfig the voltage regulator mode */
         pwc_voltage_regulate_set(PWC_REGULATOR_ON);

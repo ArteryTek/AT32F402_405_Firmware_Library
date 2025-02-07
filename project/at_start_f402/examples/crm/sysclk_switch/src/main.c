@@ -111,8 +111,8 @@ static void sclk_64m_hick_config(void)
   /* config flash psr register */
   flash_psr_set(FLASH_WAIT_CYCLE_1);
 
-  /* set power ldo output voltage to 1.0v */
-  pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
+  /* set power ldo output voltage to 1.1v */
+  pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V1);
 
   crm_clock_source_enable(CRM_CLOCK_SOURCE_HICK, TRUE);
 
@@ -195,8 +195,8 @@ static void sclk_96m_hext_config(void)
   /* config flash psr register */
   flash_psr_set(FLASH_WAIT_CYCLE_2);
 
-  /* set power ldo output voltage to 1.0v */
-  pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V0);
+  /* set power ldo output voltage to 1.1v */
+  pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V1);
 
   crm_clock_source_enable(CRM_CLOCK_SOURCE_HEXT, TRUE);
 

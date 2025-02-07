@@ -112,7 +112,8 @@ static void spi_config(void)
   spi_init_struct.clock_phase = SPI_CLOCK_PHASE_2EDGE;
   spi_init_struct.cs_mode_selection = SPI_CS_HARDWARE_MODE;
   spi_init(SPI2, &spi_init_struct);
-
+  
+  /* hardware crc calculation config */
   spi_crc_polynomial_set(SPI2, 7);
   spi_crc_enable(SPI2, TRUE);
   

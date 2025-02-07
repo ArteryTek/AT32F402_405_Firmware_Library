@@ -91,7 +91,7 @@ static void i2sf_dma_config(void)
   /* use dma1_channel3 as i2sf5 transmit channel */
   dma_reset(DMA1_CHANNEL3);
   dma_default_para_init(&dma_init_struct);
-  dma_init_struct.buffer_size = 32;
+  dma_init_struct.buffer_size = TXBUF_SIZE;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_HALFWORD;
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
@@ -107,7 +107,7 @@ static void i2sf_dma_config(void)
   /* use dma1_channel4 as i2sf5 receive channel */
   dma_reset(DMA1_CHANNEL4);
   dma_default_para_init(&dma_init_struct);
-  dma_init_struct.buffer_size = 32;
+  dma_init_struct.buffer_size = RXBUF_SIZE;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_HALFWORD;
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
@@ -183,37 +183,37 @@ static void i2sf5_gpio_config(void)
   gpio_default_para_init(&gpio_initstructure);
 
   /* i2sf ws pin */
-  gpio_initstructure.gpio_out_type       = GPIO_OUTPUT_PUSH_PULL;
-  gpio_initstructure.gpio_pull           = GPIO_PULL_DOWN;
-  gpio_initstructure.gpio_mode           = GPIO_MODE_MUX;
+  gpio_initstructure.gpio_out_type = GPIO_OUTPUT_PUSH_PULL;
+  gpio_initstructure.gpio_pull = GPIO_PULL_DOWN;
+  gpio_initstructure.gpio_mode = GPIO_MODE_MUX;
   gpio_initstructure.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_6;
+  gpio_initstructure.gpio_pins = GPIO_PINS_6;
   gpio_init(GPIOB, &gpio_initstructure);
   gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE6, GPIO_MUX_6);
 
   /* i2sf ck pin */
-  gpio_initstructure.gpio_pull           = GPIO_PULL_DOWN;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_7;
+  gpio_initstructure.gpio_pull = GPIO_PULL_DOWN;
+  gpio_initstructure.gpio_pins = GPIO_PINS_7;
   gpio_init(GPIOB, &gpio_initstructure);
   gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE7, GPIO_MUX_6);
 
 #if defined(I2SF_MASTER_BOARD)
   /* i2sf mck pin */
-  gpio_initstructure.gpio_pull           = GPIO_PULL_DOWN;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_8;
+  gpio_initstructure.gpio_pull = GPIO_PULL_DOWN;
+  gpio_initstructure.gpio_pins = GPIO_PINS_8;
   gpio_init(GPIOC, &gpio_initstructure);
   gpio_pin_mux_config(GPIOC, GPIO_PINS_SOURCE8, GPIO_MUX_6);
 #endif
 
   /* i2sf sd pin */
-  gpio_initstructure.gpio_pull           = GPIO_PULL_DOWN;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_9;
+  gpio_initstructure.gpio_pull = GPIO_PULL_DOWN;
+  gpio_initstructure.gpio_pins = GPIO_PINS_9;
   gpio_init(GPIOB, &gpio_initstructure);
   gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE9, GPIO_MUX_6);
 
   /* i2sf sdext pin */
-  gpio_initstructure.gpio_pull           = GPIO_PULL_DOWN;
-  gpio_initstructure.gpio_pins           = GPIO_PINS_8;
+  gpio_initstructure.gpio_pull = GPIO_PULL_DOWN;
+  gpio_initstructure.gpio_pins = GPIO_PINS_8;
   gpio_init(GPIOB, &gpio_initstructure);
   gpio_pin_mux_config(GPIOB, GPIO_PINS_SOURCE8, GPIO_MUX_6);
 }

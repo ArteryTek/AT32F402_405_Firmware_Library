@@ -10,8 +10,8 @@
   the pins connection as follow:
   - pc7 as mck out
   - i2s2 slaver              i2s3 master
-    pb9(ws)        <--->     pa4 (ws)
-    pb1(sck)       <--->     pc10(sck)
-    pc3(sd)        <--->     pc12(sd)
+    pb12(ws)        <--->     pa4 (ws)
+    pb13(sck)       <--->     pc10(sck)
+    pc3(sd)         <--->     pc12(sd)
 
   for more detailed information. please refer to the application note document AN0102.

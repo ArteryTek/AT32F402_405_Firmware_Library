@@ -33,13 +33,6 @@
   * @{
   */
 
-#define TXBUF_SIZE                       32
-#define RXBUF_SIZE                       TXBUF_SIZE
-
-extern uint16_t i2sf5_buffer_tx[TXBUF_SIZE];
-extern uint16_t spi_i2s_buffer_rx[RXBUF_SIZE];
-extern __IO uint32_t tx_index, rx_index;
-
 /**
   * @brief  this function handles nmi exception.
   * @param  none
@@ -135,36 +128,6 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-}
-
-/**
-  * @brief  This function handles the spi1 interrupt request.
-  * @param  None
-  * @retval None
-  */
- void SPI1_IRQHandler(void)
-{
-  if(spi_i2s_interrupt_flag_get(SPI1, SPI_I2S_RDBF_FLAG) != RESET)
-  {
-    spi_i2s_buffer_rx[rx_index++] = spi_i2s_data_receive(SPI1);
-  }
-}
-
-/**
-  * @brief  This function handles the i2sf5 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void I2SF5_IRQHandler(void)
-{
-  if(spi_i2s_interrupt_flag_get(I2SF5, SPI_I2S_TDBE_FLAG) != RESET)
-  {
-    spi_i2s_data_transmit(I2SF5, i2sf5_buffer_tx[tx_index++]);
-    if(tx_index == TXBUF_SIZE)
-    {
-      spi_i2s_interrupt_enable(I2SF5, SPI_I2S_TDBE_INT, FALSE);
-    }
-  }
 }
 
 /**

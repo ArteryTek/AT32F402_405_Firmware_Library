@@ -10,8 +10,8 @@
   i2s communication.
   the pins connection as follow:
   - spi2/i2s2                spi3/i2s3 
-    pb9(ws)        <--->     pa15(ws)
-    pb1(sck)       <--->     pb3(sck)
-    pc3(sd)        <--->     pb5(sd)
+    pb12(ws)        <--->     pa4 (ws)
+    pb13(sck)       <--->     pc10(sck)
+    pc3(sd)         <--->     pc12(sd)
 
   for more detailed information. please refer to the application note document AN0102.
