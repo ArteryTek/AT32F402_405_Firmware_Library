@@ -138,7 +138,6 @@ static void dma_config(void)
 
   /* enable dma transfer complete interrupt */
   dma_interrupt_enable(DMA1_CHANNEL1, DMA_FDT_INT, TRUE);
-  dma_channel_enable(DMA1_CHANNEL1, TRUE);
 }
 
 /**
@@ -152,7 +151,7 @@ static void adc_config(void)
   crm_periph_clock_enable(CRM_ADC1_PERIPH_CLOCK, TRUE);
   adc_clock_div_set(ADC_DIV_16);
   nvic_irq_enable(ADC1_IRQn, 0, 0);
-
+  adc_reset(ADC1);
 
   adc_base_default_para_init(&adc_base_struct);
   adc_base_struct.sequence_mode = TRUE;
@@ -223,6 +222,10 @@ int main(void)
   exint_config();
   dma_config();
   adc_config();
+    
+  /* enable DMA after ADC activation */
+  dma_channel_enable(DMA1_CHANNEL1, TRUE);
+  
   printf("exint_trigger_partitioned \r\n");
 
   while(dma_trans_complete_flag == 0);

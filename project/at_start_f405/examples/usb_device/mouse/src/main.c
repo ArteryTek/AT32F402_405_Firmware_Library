@@ -131,18 +131,38 @@ int main(void)
         otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = TRUE;
 #endif
         /* congfig the voltage regulator mode */
-        pwc_voltage_regulate_set(PWC_REGULATOR_ON);
+        pwc_voltage_regulate_set(PWC_REGULATOR_EXTRA_LOW_POWER);
 
         /* enter deep sleep mode */
         pwc_deep_sleep_mode_enter(PWC_DEEP_SLEEP_ENTER_WFI);
         
-        /* wait clock stable */
-        delay_us(120);
+        /* determine if the debugging function is enabled, if debug enable, delay 120us*/
+        if((DEBUGMCU->ctrl & 0x00000007) != 0x00000000)
+        {
+          /* wait 3 LICK(maximum 120us) cycles to ensure clock stable */
+          /* when wakeup from deepsleep,system clock source changes to HICK */
+          if((CRM->misc1_bit.hick_to_sclk == TRUE) && (CRM->misc1_bit.hickdiv == TRUE))
+          {
+            /* HICK is 48MHz */
+            for(delay_index = 0; delay_index < 750; delay_index++)
+            {
+              __NOP();
+            }
+          }
+          else
+          {
+            /* HICK is 8MHz */
+            for(delay_index = 0; delay_index < 125; delay_index++)
+            {
+              __NOP();
+            }
+          }
+        }
         
         system_clock_recover();
 #ifdef USB_OTG_HS
         otg_core_struct.usb_reg->gccfg_bit.wait_clk_rcv = FALSE;
-        delay_ms(2);
+        delay_ms(1);
         usb_open_phy_clk(otg_core_struct.usb_reg);
 #endif
      }

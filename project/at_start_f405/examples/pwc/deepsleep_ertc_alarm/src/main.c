@@ -223,17 +223,6 @@ int main(void)
 
     ertc_alarm_value_set(1);
 
-    /* select system clock source as hick before ldo set */
-    crm_sysclk_switch(CRM_SCLK_HICK);
-
-    /* wait till hick is used as system clock source */
-    while(crm_sysclk_switch_status_get() != CRM_SCLK_HICK)
-    {
-    }
-    
-    /* reduce ldo before enter deepsleep mode */
-    pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V1);
-
     /* congfig the voltage regulator mode */
     pwc_voltage_regulate_set(PWC_REGULATOR_EXTRA_LOW_POWER);
 
@@ -262,9 +251,6 @@ int main(void)
         delay_us(((120 * HICK_VALUE) /crm_clocks_freq_struct.sclk_freq) + 1);
       }
     }
-
-    /* resume ldo before system clock source enhance */
-    pwc_ldo_output_voltage_set(PWC_LDO_OUTPUT_1V3);
 
     /* congfig the system clock */
     system_clock_recover();

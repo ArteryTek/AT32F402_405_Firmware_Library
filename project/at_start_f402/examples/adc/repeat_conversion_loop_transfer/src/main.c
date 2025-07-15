@@ -88,7 +88,6 @@ static void dma_config(void)
 
   /* enable dma transfer complete interrupt */
   dma_interrupt_enable(DMA1_CHANNEL1, DMA_FDT_INT, TRUE);
-  dma_channel_enable(DMA1_CHANNEL1, TRUE);
 }
 
 /**
@@ -102,6 +101,7 @@ static void adc_config(void)
   crm_periph_clock_enable(CRM_ADC1_PERIPH_CLOCK, TRUE);
   adc_clock_div_set(ADC_DIV_16);
   nvic_irq_enable(ADC1_IRQn, 0, 0);
+  adc_reset(ADC1);
 
   adc_base_default_para_init(&adc_base_struct);
 
@@ -154,6 +154,10 @@ int main(void)
   gpio_config();
   dma_config();
   adc_config();
+    
+  /* enable DMA after ADC activation */
+  dma_channel_enable(DMA1_CHANNEL1, TRUE);
+  
   printf("repeat_conversion_loop_transfer \r\n");
   printf("please_debug_check_data_and_conversion_times \r\n");
   adc_ordinary_software_trigger_enable(ADC1, TRUE);
