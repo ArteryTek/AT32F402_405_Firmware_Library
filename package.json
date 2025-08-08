@@ -1,0 +1,6 @@
+{
+    "description": "ArteryTek AT32F402/405 Firmware Library",
+    "name": "framework-at32f402_405-firmlib",
+    "system": "all",
+    "version": "2.1.3"
+}
