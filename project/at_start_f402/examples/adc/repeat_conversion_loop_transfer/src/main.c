@@ -3,7 +3,8 @@
   * @file     main.c
   * @brief    main program
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -35,10 +36,6 @@
 
 __IO uint16_t adc1_ordinary_valuetab[3] = {0};
 __IO uint16_t dma_trans_complete_flag = 0;
-
-static void gpio_config(void);
-static void dma_config(void);
-static void adc_config(void);
 
 /**
   * @brief  gpio configuration.
@@ -99,9 +96,9 @@ static void adc_config(void)
 {
   adc_base_config_type adc_base_struct;
   crm_periph_clock_enable(CRM_ADC1_PERIPH_CLOCK, TRUE);
+  adc_reset(ADC1);
   adc_clock_div_set(ADC_DIV_16);
   nvic_irq_enable(ADC1_IRQn, 0, 0);
-  adc_reset(ADC1);
 
   adc_base_default_para_init(&adc_base_struct);
 
@@ -133,13 +130,26 @@ static void adc_config(void)
 }
 
 /**
+  * @brief  this function handles dma1_channel1 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA1_Channel1_IRQHandler(void)
+{
+  if(dma_interrupt_flag_get(DMA1_FDT1_FLAG) != RESET)
+  {
+    dma_flag_clear(DMA1_FDT1_FLAG);
+    dma_trans_complete_flag++;
+  }
+}
+
+/**
   * @brief  main function.
   * @param  none
   * @retval none
   */
 int main(void)
 {
-  __IO uint32_t index = 0;
   nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);
 
   /* config the system clock */
@@ -154,12 +164,14 @@ int main(void)
   gpio_config();
   dma_config();
   adc_config();
-    
+
   /* enable DMA after ADC activation */
   dma_channel_enable(DMA1_CHANNEL1, TRUE);
-  
+
   printf("repeat_conversion_loop_transfer \r\n");
   printf("please_debug_check_data_and_conversion_times \r\n");
+
+  /* ordinary software start conversion */
   adc_ordinary_software_trigger_enable(ADC1, TRUE);
   at32_led_on(LED2);
   while(1)

@@ -3,7 +3,8 @@
   * @file     at32f402_405_int.c
   * @brief    main interrupt service routines.
   **************************************************************************
-  *                       Copyright notice & Disclaimer
+  *
+  * Copyright (c) 2025, Artery Technology, All rights reserved.
   *
   * The software Board Support Package (BSP) that is made available to
   * download from Artery official website is the copyrighted work of Artery.
@@ -32,9 +33,6 @@
 /** @addtogroup 405_ADC_repeat_conversion_loop_transfer
   * @{
   */
-
-
-extern __IO uint16_t dma_trans_complete_flag;
 
 /**
   * @brief  this function handles nmi exception.
@@ -132,21 +130,6 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
 }
-
-/**
-  * @brief  this function handles dma1_channel1 handler.
-  * @param  none
-  * @retval none
-  */
-void DMA1_Channel1_IRQHandler(void)
-{
-  if(dma_interrupt_flag_get(DMA1_FDT1_FLAG) != RESET)
-  {
-    dma_flag_clear(DMA1_FDT1_FLAG);
-    dma_trans_complete_flag++;
-  }
-}
-
 
 /**
   * @}

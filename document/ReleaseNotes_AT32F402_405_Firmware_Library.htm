@@ -111,6 +111,117 @@ lang=EN-US style='font-size:16.0pt;font-family:"Arial",sans-serif;color:#0070C0'
 Firmware Library</span></i></b></p>
 
 <p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
+style='font-family:"Arial",sans-serif;color:#7030A0'>V2.1.4-2025/11/24</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Drivers</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>TMR</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>tmr_pwm_input_config()</span><span
+style='font-family:宋体'>、</span><span lang=EN-US>tmr_encoder_mode_config()</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>tmr_output_channel_config()</span><span
+style='font-family:宋体'>函数。通道模式配置前关闭通道使能，否则通道模式无法切换。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Middlewares</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>USB</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US> audio class</span><span
+style='font-family:宋体'>，修改</span><span lang=EN-US>audio sampling frequency</span><span
+style='font-family:宋体'>请求配置，解决部分主机兼容性问题。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Demos</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>ADC</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新所有</span><span lang=EN-US>demo</span><span
+style='font-family:宋体'>的</span><span lang=EN-US>ADC</span><span
+style='font-family:宋体'>初始化顺序，防止在极端情况下异常。</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新有使用</span><span lang=EN-US>DMA</span><span
+style='font-family:宋体'>的相关</span><span lang=EN-US>demo</span><span
+style='font-family:宋体'>，配置流程中开启</span><span lang=EN-US>DMA</span><span
+style='font-family:宋体'>循环模式，功能实现更新为循环触发。</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>删除重复的</span><span lang=EN-US> software_trigger_repeat demo</span><span
+style='font-family:宋体'>。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>USB</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>virtual_msc_iap demo</span><span
+style='font-family:宋体'>中跳转</span><span lang=EN-US>APP</span><span
+style='font-family:宋体'>函数，添加编译不优化设定，防止部分跳转优化失败的问题。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>Utilities</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>qspi_algorithm_demo</span><span
+style='font-family:宋体'>，移除多余配置流程并修正代码中使用空指针的错误操作。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>AT32IDE</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>Eclipse</span><span
+style='font-family:宋体'>工程</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>删除工程配置中</span><span lang=EN-US>release</span><span
+style='font-family:宋体'>项，只保留</span><span lang=EN-US>debug</span><span
+style='font-family:宋体'>项。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>IAP</span><span
+style='font-family:宋体'>相关</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新所有</span><span lang=EN-US>IAP_Programmer.exe</span><span
+style='font-family:宋体'>应用程序。</span></p>
+
+<p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
+style='font-family:"Arial",sans-serif;color:#7030A0'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
 style='font-family:"Arial",sans-serif;color:#7030A0'>V2.1.3-2025/06/25</span></b></p>
 
 <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
