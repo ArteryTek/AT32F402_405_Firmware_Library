@@ -111,6 +111,163 @@ lang=EN-US style='font-size:16.0pt;font-family:"Arial",sans-serif;color:#0070C0'
 Firmware Library</span></i></b></p>
 
 <p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
+style='font-family:"Arial",sans-serif;color:#7030A0'>V2.1.5-2026/06/02</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>CMSIS</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>system_at32f402_405.c</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>System_init()</span><span
+style='font-family:宋体'>函数流程，避免切换过程中可能导致的时钟异常。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>system_at32f402_405.h</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>新增</span><span lang=EN-US>SystemCoreClock</span><span
+style='font-family:宋体'>宏定义，防止三方库默认引用时报错。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Middlewares</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>I2C</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>修正宏定义拼写错误，</span><span lang=EN-US>I2C_MEM_ADDR_WIDIH_8</span><span
+style='font-family:宋体'>修正为</span><span lang=EN-US>I2C_MEM_ADDR_WIDTH_8</span><span
+style='font-family:宋体'>，</span><span lang=EN-US>I2C_MEM_ADDR_WIDIH_16</span><span
+style='font-family:宋体'>修正为</span><span lang=EN-US>I2C_MEM_ADDR_WIDTH_16</span><span
+style='font-family:宋体'>。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>USB</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>host</span><span
+style='font-family:宋体'>模式下</span><span lang=EN-US>usbh_enum_handler()</span><span
+style='font-family:宋体'>函数，在进行主机枚举过程中，</span><span lang=EN-US>SET_ADDRESS</span><span
+style='font-family:宋体'>成功后添加</span><span lang=EN-US>10ms</span><span
+style='font-family:宋体'>延时等待设备端地址生效，再进行后续请求及配置。该项以增加兼容性。</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>msc class</span><span
+style='font-family:宋体'>，增加对</span><span lang=EN-US>test_unit()</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>start_stop()</span><span
+style='font-family:宋体'>函数的处理，完善兼容性。</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>msc class</span><span
+style='font-family:宋体'>，解决</span><span lang=EN-US>uhost_process_handler()</span><span
+style='font-family:宋体'>函数中在未开启</span><span lang=EN-US>USBH_DEBUG_ENABLE</span><span
+style='font-family:宋体'>调试模式时出现的编译警告问题。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Drivers</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>TMR</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>删除多余的</span><span lang=EN-US>tmr_output_channel_fast_set()</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>tmr_trgout2_enable()</span><span
+style='font-family:宋体'>函数。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>PWC</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>用于内存屏障的</span><span lang=EN-US>__force_stores()</span><span
+style='font-family:宋体'>改由</span><span lang=EN-US>__ISB()</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>__DSB()</span><span
+style='font-family:宋体'>替代，解决不同编译器下共用问题。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>CRM</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>crm_reset()</span><span
+style='font-family:宋体'>，</span><span lang=EN-US>crm_hick_sclk_frequency_select()</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>crm_hick_divider_select()</span><span
+style='font-family:宋体'>函数流程，避免切换过程中可能导致的时钟异常。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>EXINT</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>新增定义</span><span lang=EN-US>EXINT_TRIGGER_NONE_EDGE</span><span
+style='font-family:宋体'>，以适应软触发无边沿配置需求。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Demos</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>I2C</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新所有</span><span lang=EN-US>I2C demo</span><span
+style='font-family:宋体'>中宏定义拼写错误，</span><span lang=EN-US>I2C_MEM_ADDR_WIDIH_8</span><span
+style='font-family:宋体'>修正为</span><span lang=EN-US>I2C_MEM_ADDR_WIDTH_8</span><span
+style='font-family:宋体'>，</span><span lang=EN-US>I2C_MEM_ADDR_WIDIH_16</span><span
+style='font-family:宋体'>修正为</span><span lang=EN-US>I2C_MEM_ADDR_WIDTH_16</span><span
+style='font-family:宋体'>。</span></p>
+
+<p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=EN-US>USB</span></p>
+
+<p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US style='font-family:Wingdings'>w<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+style='font-family:宋体'>更新</span><span lang=EN-US>virtual_msc_iap demo</span><span
+style='font-family:宋体'>中清除中断信息，原写法不够准确清晰。</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+word-break:break-all'><span lang=EN-US>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:宋体'>更新部分注释。</span></p>
+
+<p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
+style='font-family:"Arial",sans-serif;color:#7030A0'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='word-break:break-all'><b><span lang=EN-US
 style='font-family:"Arial",sans-serif;color:#7030A0'>V2.1.4-2025/11/24</span></b></p>
 
 <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;

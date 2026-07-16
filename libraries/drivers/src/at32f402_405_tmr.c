@@ -1223,19 +1223,6 @@ void tmr_channel_buffer_enable(tmr_type *tmr_x, confirm_state new_state)
 }
 
 /**
-  * @brief  select tmr trgout2
-  * @param  tmr_x: select the tmr peripheral.
-  *         this parameter can be one of the following values:
-  *         TMR1
-  * @param  new_state (TRUE or FALSE)
-  * @retval none
-  */
-void tmr_trgout2_enable(tmr_type *tmr_x, confirm_state new_state)
-{
-  tmr_x->ctrl2_bit.trgout2en = new_state;
-}
-
-/**
   * @brief  select tmr sub-trigger
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
@@ -1476,25 +1463,6 @@ void tmr_output_enable(tmr_type *tmr_x, confirm_state new_state)
 void tmr_internal_clock_set(tmr_type *tmr_x)
 {
   tmr_x->stctrl_bit.smsel = TMR_SUB_MODE_DIABLE;
-}
-
-/**
-  * @brief  set tmr output channel fast
-  * @param  tmr_x: select the tmr peripheral.
-  *         this parameter can be one of the following values:
-  *         TMR1, TMR2, TMR3, TMR4, TMR9, TMR10, TMR11, TMR13,
-  *         TMR14
-  * @param  oc_fast
-  *         this parameter can be one of the following values:
-  *         - TMR_CHANNEL1_OUTPUT_FAST
-  *         - TMR_CHANNEL2_OUTPUT_FAST
-  *         - TMR_CHANNEL3_OUTPUT_FAST
-  *         - TMR_CHANNEL4_OUTPUT_FAST
-  * @retval none
-  */
-void tmr_output_channel_fast_set(tmr_type *tmr_x, tmr_channel_output_fast_type oc_fast)
-{
-  PERIPH_REG((uint32_t)(tmr_x), oc_fast) |= PERIPH_REG_BIT(oc_fast);
 }
 
 /**

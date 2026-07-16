@@ -299,14 +299,17 @@ void jump_to_app(uint32_t address)
   jumpaddr = *(uint32_t *)(address + sizeof(uint32_t));
 
   /* disable nvic irq and periph clock, clear pending */
-  nvic_irq_disable(OTGFS1_IRQn);
+  nvic_irq_disable(OTG_IRQ);
 
-  __NVIC_ClearPendingIRQ(OTGFS1_IRQn);
+  __NVIC_ClearPendingIRQ(OTG_IRQ);
 
-  crm_periph_clock_enable(CRM_OTGFS1_PERIPH_CLOCK, FALSE);
+  crm_periph_clock_enable(OTG_CLOCK, FALSE);
 
   crm_periph_reset(CRM_OTGFS1_PERIPH_RESET, TRUE);
   crm_periph_reset(CRM_OTGFS1_PERIPH_RESET, FALSE);
+  
+  crm_periph_reset(CRM_OTGHS_PERIPH_RESET, TRUE);
+  crm_periph_reset(CRM_OTGHS_PERIPH_RESET, FALSE);
 
   __set_MSP(stkptr);
   pftarget = (void (*) (void))jumpaddr;
